@@ -48,7 +48,7 @@ html{font-size:18px}body{background:var(--bg);color:var(--tx);font-family:var(--
 .bb-btn.off{color:var(--t2);opacity:.2;pointer-events:none}
 .bb-mid{text-align:center;flex:1}
 .bb-ct{font-size:.95rem;color:var(--t2)}
-.bb-ex{font-size:.9rem;color:var(--ac);cursor:pointer;background:none;border:none;font-family:var(--f);padding:4px 12px;margin-top:2px;opacity:.65}
+.bb-ex{font-size:1rem;color:var(--ac);cursor:pointer;background:none;border:none;font-family:var(--f);padding:8px 16px;opacity:.8}
 .bb-ex:active{opacity:1}
 .read{position:relative;z-index:2;padding:40px 28px 120px;max-width:660px;margin:0 auto}
 .read h2{font-size:clamp(1.3rem,4vw,1.6rem);font-weight:400;margin:2.5em 0 1em;line-height:1.35}.read h2:first-of-type{margin-top:.5em}
@@ -159,14 +159,17 @@ function Steps(p){
     ),
     h("div",{className:"bb"},
       h("div",{className:"bb-prog"},h("div",{className:"bb-prog-f",style:{width:pct+"%"}})),
-      h("div",{className:"bb-row"},
-        h("button",{className:"bb-btn"+(i===0?" off":""),onClick:prev},"\u2190"),
-        h("button",{className:"bb-btn",onClick:p.back},"Ricette"),
-        h("button",{className:"bb-btn",onClick:p.vocab},"Vocab."),
-        i<len-1?h("button",{className:"bb-btn",onClick:next},"\u2192"):
-          h("button",{className:"bb-btn",onClick:p.back},"Fine")
+      h("div",{style:{display:"flex",justifyContent:"center",gap:24,padding:"8px 16px 4px"}},
+        h("button",{className:"bb-ex",onClick:function(){p.home()}},"Inizio"),
+        h("button",{className:"bb-ex",onClick:p.back},"Ricette"),
+        h("button",{className:"bb-ex",onClick:p.vocab},"Vocabolario")
       ),
-      h("div",{style:{textAlign:"center",padding:"0 0 4px",fontSize:".85rem",color:"var(--t2)"}},(i+1)+" / "+len)
+      h("div",{className:"bb-row"},
+        h("button",{className:"bb-btn"+(i===0?" off":""),onClick:prev},"\u2190 Indietro"),
+        h("div",{className:"bb-mid"},h("div",{className:"bb-ct"},(i+1)+" / "+len)),
+        i<len-1?h("button",{className:"bb-btn",onClick:next},"Avanti \u2192"):
+          h("button",{className:"bb-btn",onClick:p.back},"Fine \u2192")
+      )
     )
   );
 }
@@ -233,7 +236,7 @@ function App(){
 
   // STEPS
   if(v==="steps"&&rc)return h("div",null,h(Bg,{a:1}),
-    h(Steps,{recipe:rc,back:goM,vocab:function(){svo(true)}}),
+    h(Steps,{recipe:rc,back:goM,home:function(){sv("splash");sr(null);window.scrollTo(0,0)},vocab:function(){svo(true)}}),
     h(Voc,{o:voc,c:function(){svo(false)}}));
 
   // READ
