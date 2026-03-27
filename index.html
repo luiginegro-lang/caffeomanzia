@@ -10,72 +10,88 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0a0a08;--text:#ddd8d0;--text2:#a09a8e;--accent:#c8a96e;--card-bg:rgba(22,22,20,.88);--border:#2a2824;--serif:'Cormorant Garamond',Georgia,serif}
+:root{--bg:#0a0a08;--text:#ddd8d0;--text2:#a09a8e;--accent:#c8a96e;--card:rgba(22,22,20,.88);--brd:#2a2824;--f:'Cormorant Garamond',Georgia,serif}
 html{font-size:18px}
-body{background:var(--bg);color:var(--text);font-family:var(--serif);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.8}
+body{background:var(--bg);color:var(--text);font-family:var(--f);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.8}
 
-/* BG */
-.bg-wrap{position:fixed;inset:0;z-index:0;overflow:hidden}
-.bg-img{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;opacity:0;transition:opacity 1.8s ease}
-.bg-img.active{opacity:1}
-.bg-img.i1{animation:k1 30s ease-in-out infinite alternate}
-.bg-img.i2{animation:k2 35s ease-in-out infinite alternate}
+.bg-w{position:fixed;inset:0;z-index:0;overflow:hidden}
+.bg-i{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;opacity:0;transition:opacity 1.8s}
+.bg-i.on{opacity:1}
+.bg-i.i1{animation:k1 30s ease-in-out infinite alternate}
+.bg-i.i2{animation:k2 35s ease-in-out infinite alternate}
 @keyframes k1{0%{transform:scale(1)}100%{transform:scale(1.06) translate(-1.5%,1%)}}
 @keyframes k2{0%{transform:scale(1.04) translate(1%,-1%)}100%{transform:scale(1) translate(-1%,1.5%)}}
-.bg-ov{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,8,.2) 0%,rgba(10,10,8,.6) 30%,rgba(10,10,8,.94) 100%)}
+.bg-o{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,8,.2) 0%,rgba(10,10,8,.6) 30%,rgba(10,10,8,.94) 100%)}
 
 /* SPLASH */
 .splash{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;cursor:pointer;user-select:none}
-.sp-t{font-size:clamp(1.8rem,6vw,2.8rem);font-weight:300;letter-spacing:.12em;text-transform:uppercase;opacity:0;animation:fs 1.5s ease .3s forwards}
-.sp-t2{font-size:clamp(1rem,3vw,1.4rem);font-weight:300;letter-spacing:.2em;text-transform:uppercase;margin-top:4px;opacity:0;animation:fs 1.5s ease .6s forwards}
-.sp-sub{font-size:clamp(1.1rem,3vw,1.3rem);font-weight:300;font-style:italic;color:var(--text2);margin-top:14px;opacity:0;animation:fs 1.5s ease .9s forwards}
-.sp-sep{color:var(--accent);font-size:1.1rem;letter-spacing:.5em;margin:44px 0;opacity:0;animation:fs 1s ease 1.2s forwards}
-.sp-m{font-size:clamp(1rem,2.5vw,1.15rem);font-weight:300;font-style:italic;color:var(--text2);margin-bottom:8px;opacity:0;animation:fs 1.2s ease 1.5s forwards}
-.sp-c{font-size:1rem;color:var(--text2);letter-spacing:.06em;margin-top:60px;opacity:0;animation:fs 1.2s ease 2s forwards}
-.sp-e{position:absolute;bottom:50px;font-size:.95rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;animation:pulse 3s ease-in-out infinite}
+.s1{font-size:clamp(1.8rem,6vw,2.8rem);font-weight:300;letter-spacing:.12em;text-transform:uppercase;opacity:0;animation:fs 1.5s ease .3s forwards}
+.s2{font-size:clamp(1rem,3vw,1.4rem);font-weight:300;letter-spacing:.2em;text-transform:uppercase;margin-top:4px;opacity:0;animation:fs 1.5s ease .6s forwards}
+.s3{font-size:clamp(1.1rem,3vw,1.3rem);font-weight:300;font-style:italic;color:var(--text2);margin-top:14px;opacity:0;animation:fs 1.5s ease .9s forwards}
+.s4{color:var(--accent);font-size:1.1rem;letter-spacing:.5em;margin:44px 0;opacity:0;animation:fs 1s ease 1.2s forwards}
+.s5{font-size:clamp(1rem,2.5vw,1.15rem);font-weight:300;font-style:italic;color:var(--text2);margin-bottom:8px;opacity:0;animation:fs 1.2s ease 1.5s forwards}
+.s6{font-size:1rem;color:var(--text2);letter-spacing:.06em;margin-top:60px;opacity:0;animation:fs 1.2s ease 2s forwards}
+.s7{position:absolute;bottom:50px;font-size:.95rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;animation:pulse 3s ease-in-out infinite}
 
 /* MENU */
-.menu{position:relative;z-index:2;min-height:100dvh;padding:80px 28px 80px;max-width:540px;margin:0 auto}
-.menu-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px}
-.menu-back{color:var(--accent);font-size:1rem;cursor:pointer;background:none;border:none;font-family:var(--serif);padding:8px 0}
-.menu-vocab{color:var(--accent);font-size:.95rem;cursor:pointer;background:none;border:1px solid var(--border);font-family:var(--serif);padding:8px 16px;border-radius:6px}
-.menu-label{font-size:1rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:24px;text-align:center;opacity:0;animation:fs .6s ease .1s forwards}
-.rc{display:block;width:100%;padding:24px 24px;margin-bottom:24px;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;cursor:pointer;text-align:left;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;animation:fs .5s ease forwards;transition:border-color .3s}
-.rc:nth-child(2){animation-delay:.15s}.rc:nth-child(3){animation-delay:.25s}.rc:nth-child(4){animation-delay:.35s}.rc:nth-child(5){animation-delay:.45s}
+.menu{position:relative;z-index:2;padding:60px 28px 120px;max-width:540px;margin:0 auto}
+.menu-h{font-size:1rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:28px;text-align:center;opacity:0;animation:fs .6s ease .1s forwards}
+.rc{display:block;width:100%;padding:26px 24px;margin-bottom:20px;background:var(--card);border:1px solid var(--brd);border-radius:12px;cursor:pointer;text-align:left;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;animation:fs .5s ease forwards;transition:border-color .3s;min-height:88px}
+.rc:nth-child(2){animation-delay:.12s}.rc:nth-child(3){animation-delay:.2s}.rc:nth-child(4){animation-delay:.28s}.rc:nth-child(5){animation-delay:.36s}
 .rc:active{border-color:var(--accent)}
-.rc-num{font-size:.9rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:8px}
-.rc-name{font-size:clamp(1.3rem,4vw,1.55rem);font-weight:400;color:var(--text);display:block;margin-bottom:8px}
-.rc-desc{font-size:1.05rem;color:var(--text2);font-weight:300;font-style:italic;display:block}
+.rc-n{font-size:.9rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:8px}
+.rc-t{font-size:clamp(1.3rem,4vw,1.55rem);font-weight:400;color:var(--text);display:block;margin-bottom:8px}
+.rc-d{font-size:1.05rem;color:var(--text2);font-weight:300;font-style:italic;display:block}
 
-/* STEP — full screen, tap to advance */
-.step{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;padding:0;user-select:none;cursor:pointer}
-.step-exit{position:fixed;top:0;left:0;right:0;z-index:10;padding:18px 28px;display:flex;justify-content:space-between;align-items:center}
-.step-exit button{color:var(--accent);font-size:.95rem;cursor:pointer;background:none;border:none;font-family:var(--serif);padding:8px 0;opacity:.7;transition:opacity .3s}
-.step-exit button:active{opacity:1}
-.step-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 32px 100px;text-align:center;max-width:580px;margin:0 auto;width:100%}
-.step-name{font-size:.95rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
-.step-phase{font-size:.9rem;color:var(--text2);letter-spacing:.08em;margin-bottom:32px;text-transform:uppercase}
-.step-txt{font-size:clamp(1.25rem,3.8vw,1.55rem);font-weight:300;line-height:1.75;color:var(--text);opacity:0;animation:fs .45s ease forwards}
-.step-note{font-size:clamp(1.05rem,2.8vw,1.2rem);color:var(--text2);font-style:italic;margin-top:24px;font-weight:300;line-height:1.7;opacity:0;animation:fs .45s ease .15s forwards}
-.step-hint{position:fixed;bottom:80px;left:0;right:0;text-align:center;font-size:.85rem;color:var(--text2);opacity:.4;pointer-events:none;animation:pulse 4s ease-in-out infinite}
+/* MENU BOTTOM SECTION — read manual link */
+.menu-sep{text-align:center;color:var(--accent);letter-spacing:.5em;margin:36px 0 28px;font-size:.9rem;opacity:0;animation:fs .6s ease .5s forwards}
+.menu-read{display:block;width:100%;padding:22px 24px;background:transparent;border:1px solid var(--brd);border-radius:12px;cursor:pointer;text-align:center;opacity:0;animation:fs .5s ease .55s forwards;transition:border-color .3s}
+.menu-read:active{border-color:var(--accent)}
+.menu-read-t{font-size:clamp(1.1rem,3vw,1.25rem);font-weight:400;color:var(--text);display:block;margin-bottom:4px}
+.menu-read-d{font-size:1rem;color:var(--text2);font-weight:300;font-style:italic}
 
-/* PROGRESS BAR */
-.progress{position:fixed;bottom:0;left:0;right:0;z-index:10;height:3px;background:rgba(255,255,255,.06)}
-.progress-fill{height:100%;background:var(--accent);transition:width .4s ease;opacity:.7}
-.progress-count{position:fixed;bottom:10px;right:28px;z-index:10;font-size:.85rem;color:var(--text2);opacity:.5}
+/* BOTTOM BAR — always in thumb zone */
+.bbar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(10,10,8,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--brd);padding:12px 24px 28px;display:flex;align-items:center;justify-content:space-between}
+.bbar button{background:none;border:none;color:var(--accent);font-family:var(--f);font-size:1.05rem;cursor:pointer;padding:10px 16px;border-radius:8px;transition:background .2s;min-width:48px;min-height:48px;display:flex;align-items:center;justify-content:center}
+.bbar button:active{background:rgba(200,169,110,.12)}
+.bbar button.dim{color:var(--text2);opacity:.4}
+.bbar-center{display:flex;align-items:center;gap:12px}
+.bbar-label{font-size:.95rem;color:var(--text2);white-space:nowrap}
+
+/* STEP */
+.step{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px 120px;text-align:center;max-width:580px;margin:0 auto;user-select:none;cursor:pointer}
+.st-name{font-size:.95rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.st-phase{font-size:.9rem;color:var(--text2);letter-spacing:.08em;margin-bottom:32px;text-transform:uppercase}
+.st-txt{font-size:clamp(1.25rem,3.8vw,1.55rem);font-weight:300;line-height:1.75;opacity:0;animation:fs .4s ease forwards}
+.st-note{font-size:clamp(1.05rem,2.8vw,1.2rem);color:var(--text2);font-style:italic;margin-top:24px;font-weight:300;line-height:1.7;opacity:0;animation:fs .4s ease .12s forwards}
+.st-hint{margin-top:40px;font-size:.9rem;color:var(--text2);opacity:.35}
+
+/* PROGRESS — thin line above bottom bar */
+.prog{position:fixed;bottom:68px;left:0;right:0;z-index:51;height:2px;background:rgba(255,255,255,.05)}
+.prog-f{height:100%;background:var(--accent);transition:width .4s;opacity:.6}
+
+/* READ VIEW */
+.read{position:relative;z-index:2;padding:40px 28px 120px;max-width:660px;margin:0 auto}
+.read h2{font-size:clamp(1.35rem,4vw,1.7rem);font-weight:400;margin:2.5em 0 1em;line-height:1.3;color:var(--text)}
+.read h2:first-of-type{margin-top:.5em}
+.read h3{font-size:clamp(1.1rem,3vw,1.3rem);font-weight:500;margin:2em 0 .8em}
+.read p{font-size:clamp(1.05rem,2.5vw,1.2rem);margin-bottom:1.4em;font-weight:300;line-height:1.85}
+.read .it{font-style:italic;color:var(--text2)}
+.read .sep{text-align:center;color:var(--accent);letter-spacing:.5em;margin:2em 0}
+.read .bl{font-weight:500}
+.read .cred{text-align:center;font-style:italic;color:var(--text2);font-size:1rem;margin-top:3em}
 
 /* VOCAB */
-.voc-ov{position:fixed;inset:0;background:rgba(10,10,8,.96);z-index:200;overflow-y:auto;padding:80px 28px 60px;opacity:0;pointer-events:none;transition:opacity .4s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.voc-ov.open{opacity:1;pointer-events:auto}
-.voc-x{position:fixed;top:18px;right:28px;color:var(--text2);font-size:1.8rem;cursor:pointer;z-index:210;background:none;border:none;font-family:var(--serif)}
-.voc-in{max-width:600px;margin:0 auto}
-.voc-t{font-size:1rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:36px;text-align:center}
-.voc-i{margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid var(--border)}
-.voc-i:last-child{border-bottom:none}
-.voc-w{font-size:1.3rem;font-weight:500;margin-bottom:10px}
-.voc-d{font-size:1.1rem;font-weight:300;color:var(--text2);line-height:1.8}
+.vov{position:fixed;inset:0;background:rgba(10,10,8,.96);z-index:200;overflow-y:auto;padding:80px 28px 100px;opacity:0;pointer-events:none;transition:opacity .35s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.vov.on{opacity:1;pointer-events:auto}
+.vo-x{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:210;background:var(--card);border:1px solid var(--brd);color:var(--accent);font-family:var(--f);font-size:1rem;padding:12px 32px;border-radius:8px;cursor:pointer}
+.vo-t{font-size:1rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:36px;text-align:center}
+.vo-i{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--brd)}
+.vo-i:last-child{border-bottom:none}
+.vo-w{font-size:1.25rem;font-weight:500;margin-bottom:8px}
+.vo-d{font-size:1.1rem;font-weight:300;color:var(--text2);line-height:1.8}
 
-@keyframes fs{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fs{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:.2}50%{opacity:.6}}
 </style>
 </head>
@@ -84,187 +100,227 @@ body{background:var(--bg);color:var(--text);font-family:var(--serif);-webkit-fon
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script>
-var e=React.createElement,us=React.useState,ue=React.useEffect,uc=React.useCallback;
+var h=React.createElement,us=React.useState,ue=React.useEffect,ur=React.useRef;
 
-var RECIPES=[
-{id:"sacrificale",num:"I",name:"Il Caff\u00e8 Sacrificale",desc:"Lettura pura. Non si beve. Pratica solitaria.",
-steps:[
+var RR=[
+{id:"sacrificale",num:"I",nm:"Il Caff\u00e8 Sacrificale",ds:"Lettura pura. Non si beve. Pratica solitaria.",
+ss:[
 {p:"Preparazione",t:"Prendi il caff\u00e8 esausto. Chicchi specialty invecchiati, buste dimenticate, lotti rifiutati. Caff\u00e8 che ha perso la sua destinazione."},
 {p:"Preparazione",t:"Pesa 25 grammi di chicchi."},
-{p:"Preparazione",t:"Macina medio-grosso con macinino manuale. I chicchi vecchi e fragili produrranno naturalmente fines \u2014 polvere ultrafine. Questa fragilit\u00e0 \u00e8 la risorsa della ricetta."},
-{p:"Preparazione",t:"Scalda 150 ml di acqua a 90\u201395\u00b0C. Appena sotto il bollore."},
-{p:"Infusione",t:"Versa l\u2019acqua calda sulla macinatura, direttamente in una tazza o ciotola."},
-{p:"Infusione",t:"Copri con un piattino."},
-{p:"Infusione",t:"Cinque minuti. In silenzio.",n:"Il silenzio \u00e8 parte della ricetta. Il Caff\u00e8 Sacrificale si prepara senza parlare."},
-{p:"Colatura",t:"Lascia intiepidire il caff\u00e8 fino a quando \u00e8 maneggiabile."},
-{p:"Colatura",t:"Prepara un foglio di carta per acquerello bianca, almeno 200 g/m\u00b2. Pi\u00f9 alta la grammatura, pi\u00f9 ricche le figure."},
-{p:"Colatura",t:"Versa tutto \u2014 liquido e fondo \u2014 al centro della carta. Un gesto unico e deciso. Non distribuire. La materia si espande da sola."},
+{p:"Preparazione",t:"Macina medio-grosso con macinino manuale. I chicchi vecchi produrranno naturalmente fines \u2014 polvere ultrafine. Questa fragilit\u00e0 \u00e8 la risorsa della ricetta."},
+{p:"Preparazione",t:"Scalda 150 ml di acqua a 90\u201395\u00b0C."},
+{p:"Infusione",t:"Versa l\u2019acqua sulla macinatura in una tazza o ciotola. Copri con un piattino."},
+{p:"Infusione",t:"Cinque minuti. In silenzio.",n:"Il silenzio \u00e8 parte della ricetta."},
+{p:"Colatura",t:"Lascia intiepidire. Prepara un foglio di carta per acquerello bianca, almeno 200 g/m\u00b2."},
+{p:"Colatura",t:"Versa tutto \u2014 liquido e fondo \u2014 al centro della carta. Un gesto unico e deciso. La materia si espande da sola."},
 {p:"Attesa",t:"Attendi che asciughi. Da venti minuti a un\u2019ora."},
-{p:"Lettura",t:"Osserva il monotipo. Densit\u00e0 e rarefazione, centro e periferia, continuit\u00e0 e frattura, bordi, velocit\u00e0, residui.",n:"Tocca \u201cVocabolario\u201d in alto per la guida alla lettura."},
-{p:"Archivio",t:"Annota sul retro: la data, il caff\u00e8, una parola o frase. Conserva la carta."},
+{p:"Lettura",t:"Osserva il monotipo. Densit\u00e0 e rarefazione, centro e periferia, continuit\u00e0 e frattura, bordi, velocit\u00e0, residui."},
+{p:"Archivio",t:"Annota sul retro: la data, il caff\u00e8, una parola. Conserva la carta."},
 ]},
-{id:"parlante",num:"II",name:"Il Caff\u00e8 Parlante",desc:"Si beve e si legge. Pratica conviviale.",
-steps:[
-{p:"Preparazione",t:"Caff\u00e8 esausto pi\u00f9 aromatiche a scelta: scorza di limone o arancia secca, anice stellato, cannella, verbena, cardamomo, chiodi di garofano."},
-{p:"Preparazione",t:"Pesa 25 grammi di caff\u00e8 e 3\u20135 grammi di aromatiche. Macina medio-grosso. Mescola."},
-{p:"Preparazione",t:"Scalda 250 ml di acqua a 90\u201395\u00b0C."},
-{p:"Estrazione",t:"Carica il cestello filtro della cuccumella con caff\u00e8 e aromatiche mescolati."},
-{p:"Estrazione",t:"La cuccumella al contrario: non capovolgere. Versa l\u2019acqua calda direttamente nel serbatoio superiore. L\u2019acqua scende per gravit\u00e0.",n:"Il gesto fondamentale della cuccumella \u2014 rovesciare il mondo \u2014 viene sospeso."},
-{p:"La doppia tazza",t:"Prima met\u00e0: filtra con carta (V60, Chemex, o filtro da supermercato su un colino). Il caff\u00e8 da bere."},
-{p:"La doppia tazza",t:"Seconda met\u00e0 \u2014 pi\u00f9 densa, pi\u00f9 carica: versa in un\u2019altra tazza senza filtrare. La tazza della lettura.",n:"La carta filtrante \u00e8 la soglia che separa il piacere dalla divinazione."},
-{p:"Il rito",t:"Bevete insieme la prima tazza. Parlate, state, ascoltate. Le parole dette mentre si beve sono il contesto della lettura."},
-{p:"Lettura",t:"Il consultante beve lentamente la seconda tazza fino all\u2019ultimo terzo. Capovolgi sul piattino. Tre-cinque minuti."},
-{p:"Lettura",t:"Leggi a voce, in dialogo. Descrivi le relazioni spaziali, le densit\u00e0, i vuoti. Chi consulta risponde.",n:"Figure fatte pi\u00f9 di assenza che di presenza."},
+{id:"parlante",num:"II",nm:"Il Caff\u00e8 Parlante",ds:"Si beve e si legge. Pratica conviviale.",
+ss:[
+{p:"Preparazione",t:"Caff\u00e8 esausto pi\u00f9 aromatiche: scorza di limone o arancia secca, anice stellato, cannella, verbena, cardamomo, chiodi di garofano."},
+{p:"Preparazione",t:"Pesa 25 grammi di caff\u00e8 e 3\u20135 grammi di aromatiche. Macina medio-grosso. Mescola. Scalda 250 ml di acqua a 90\u201395\u00b0C."},
+{p:"Estrazione",t:"Carica il cestello della cuccumella con caff\u00e8 e aromatiche mescolati."},
+{p:"Estrazione",t:"La cuccumella al contrario: non capovolgere. Versa l\u2019acqua dall\u2019alto. L\u2019acqua scende per gravit\u00e0.",n:"Il gesto fondamentale \u2014 rovesciare il mondo \u2014 viene sospeso."},
+{p:"La doppia tazza",t:"Prima met\u00e0: filtra con carta. Il caff\u00e8 da bere. Seconda met\u00e0: non filtrare. La tazza della lettura.",n:"La carta filtrante \u00e8 la soglia tra il piacere e la divinazione."},
+{p:"Il rito",t:"Bevete insieme la prima tazza. Parlate, state, ascoltate."},
+{p:"Lettura",t:"Il consultante beve la seconda tazza fino all\u2019ultimo terzo. Capovolgi sul piattino. Tre-cinque minuti."},
+{p:"Lettura",t:"Leggi a voce, in dialogo. Descrivi le relazioni spaziali, i vuoti. Chi consulta risponde.",n:"Figure fatte pi\u00f9 di assenza che di presenza."},
 ]},
-{id:"soglia",num:"III",name:"Il Caff\u00e8 della Soglia",desc:"La lettura \u00e8 nel tempo. Pratica dell\u2019ascolto.",
-steps:[
-{p:"Preparazione",t:"Caff\u00e8 esausto pi\u00f9 un ingrediente secco: buccia d\u2019arancia secca a pezzetti, fiori di camomilla, cardamomo frantumato, o petali di rosa secchi."},
-{p:"Preparazione",t:"Pesa 25 grammi di caff\u00e8 e 5\u20138 grammi di materiale secco. Macina medio-fine."},
-{p:"Preparazione",t:"Scalda 200 ml di acqua fino al bollore, 100\u00b0C."},
-{p:"Estrazione",t:"Carica il cestello con caff\u00e8 e materiale secco mescolati, ben pressati. Riempi il serbatoio. Capovolgi."},
-{p:"Estrazione",t:"Prepara il telefono. Avvia la registrazione audio."},
-{p:"L\u2019ascolto",t:"Ascolta senza guardare. Il gocciolio sar\u00e0 irregolare: rapido all\u2019inizio, poi pi\u00f9 lento, con pause, silenzi lunghi.",n:"L\u2019estrazione durer\u00e0 dai venti ai quaranta minuti."},
-{p:"L\u2019ascolto",t:"Presta attenzione al ritmo. Le accelerazioni, i rallentamenti, le pause. Il momento in cui cambia."},
-{p:"L\u2019ascolto",t:"Nota l\u2019ultima goccia. Quella dopo la quale il silenzio diventa definitivo."},
+{id:"soglia",num:"III",nm:"Il Caff\u00e8 della Soglia",ds:"La lettura \u00e8 nel tempo. Pratica dell\u2019ascolto.",
+ss:[
+{p:"Preparazione",t:"Caff\u00e8 esausto pi\u00f9 ingrediente secco: buccia d\u2019arancia secca, fiori di camomilla, cardamomo, o petali di rosa secchi."},
+{p:"Preparazione",t:"Pesa 25 grammi di caff\u00e8 e 5\u20138 grammi di materiale secco. Macina medio-fine. Scalda 200 ml di acqua a 100\u00b0C."},
+{p:"Estrazione",t:"Carica il cestello con caff\u00e8 e materiale secco, ben pressati. Riempi il serbatoio. Capovolgi."},
+{p:"Estrazione",t:"Avvia la registrazione audio sul telefono."},
+{p:"L\u2019ascolto",t:"Ascolta senza guardare. Il gocciolio sar\u00e0 irregolare: rapido, poi lento, con pause e silenzi lunghi.",n:"Dai venti ai quaranta minuti."},
+{p:"L\u2019ascolto",t:"Presta attenzione al ritmo. Le pause. Il momento in cui cambia. L\u2019ultima goccia, dopo la quale il silenzio diventa definitivo."},
 {p:"Lettura",t:"La lettura \u00e8 gi\u00e0 avvenuta. Le percezioni durante l\u2019attesa sono la lettura."},
 {p:"Archivio",t:"Ferma la registrazione. Il file sonoro \u00e8 un documento oracolare. Conservalo."},
 ]},
-{id:"incontro",num:"IV",name:"Il Caff\u00e8 dell\u2019Incontro",desc:"Due assenze si incontrano. Si beve.",
-steps:[
-{p:"",t:"Un caff\u00e8 che ha superato i trenta giorni dalla tostatura non \u00e8 morto. Ha perso la voce. L\u2019individuo \u00e8 diventato categoria.",n:"Il Caff\u00e8 dell\u2019Incontro \u00e8 possibile solo come protesi \u2014 solo quando il caff\u00e8 ha gi\u00e0 attraversato la soglia."},
-{p:"Preparazione",t:"Pesa 35 grammi di caff\u00e8 esausto. Monorigine che \u00e8 stato buono \u2014 la sua assenza \u00e8 tanto pi\u00f9 significativa quanto pi\u00f9 la sua presenza era stata eloquente."},
-{p:"Preparazione",t:"Macina grosso. Comandante C40: 28\u201330 click. Scalda 500 ml di acqua a 90\u201392\u00b0C."},
-{p:"Preparazione",t:"Scegli una sola aromatica. Buccia d\u2019arancia essiccata (due o tre pezzi) oppure un baccello di cardamomo verde, leggermente schiacciato.",n:"Evitare cannella, anice stellato, vaniglia. Troppo dominanti."},
-{p:"Il principio",t:"Il caff\u00e8 viene estratto da solo, nella sua esaustione. Le aromatiche arrivano dopo, nel liquido gi\u00e0 estratto, come ospiti brevi. Non lavorano. Passano.",n:"Nel Caff\u00e8 Parlante le aromatiche sono operaie. Qui sono ospiti."},
-{p:"Variante I \u2014 French press",t:"Versa l\u2019acqua sul caff\u00e8 nella French press. Quattro minuti senza aromatiche. Poi aggiungi le aromatiche. Un minuto. Premi lo stantuffo. Versa."},
-{p:"Variante II \u2014 Cuccumella classica",t:"Cestello con solo caff\u00e8. Riempi il serbatoio. Capovolgi. Estrai. Versa nella tazza. Aggiungi le aromatiche nel liquido caldo. Un minuto. Rimuovi."},
-{p:"Variante III \u2014 Cuccumella aFa",t:"Cestello con solo caff\u00e8. Versa l\u2019acqua dall\u2019alto senza capovolgere. Versa nella tazza. Aggiungi le aromatiche. Un minuto. Rimuovi.",n:"In tutte le varianti: le aromatiche entrano nel liquido gi\u00e0 estratto. Un fantasma, non una presenza piena."},
-{p:"",t:"Bevi lentamente. Il caff\u00e8 \u00e8 il letto, la spezia \u00e8 il sogno. Nessuno dei due finge di essere l\u2019altro."},
+{id:"incontro",num:"IV",nm:"Il Caff\u00e8 dell\u2019Incontro",ds:"Due assenze si incontrano. Si beve.",
+ss:[
+{p:"",t:"Un caff\u00e8 che ha superato i trenta giorni non \u00e8 morto. Ha perso la voce. L\u2019individuo \u00e8 diventato categoria.",n:"Possibile solo come protesi \u2014 solo quando il caff\u00e8 ha gi\u00e0 attraversato la soglia."},
+{p:"Preparazione",t:"Pesa 35 grammi di caff\u00e8 esausto. Monorigine che \u00e8 stato buono. Macina grosso (C40: 28\u201330 click). Scalda 500 ml di acqua a 90\u201392\u00b0C."},
+{p:"Preparazione",t:"Scegli una sola aromatica. Buccia d\u2019arancia essiccata oppure un baccello di cardamomo verde.",n:"Evitare cannella, anice stellato, vaniglia. Troppo dominanti."},
+{p:"Il principio",t:"Il caff\u00e8 viene estratto da solo. Le aromatiche arrivano dopo, nel liquido, come ospiti brevi. Non lavorano. Passano.",n:"Nel Caff\u00e8 Parlante sono operaie. Qui sono ospiti."},
+{p:"French press",t:"Versa l\u2019acqua sul caff\u00e8. Quattro minuti senza aromatiche. Aggiungi le aromatiche. Un minuto. Stantuffo. Versa."},
+{p:"Cuccumella classica",t:"Cestello con solo caff\u00e8. Capovolgi. Estrai. Versa nella tazza. Aggiungi le aromatiche nel liquido. Un minuto. Rimuovi."},
+{p:"Cuccumella aFa",t:"Cestello con solo caff\u00e8. Versa l\u2019acqua dall\u2019alto senza capovolgere. Versa nella tazza. Aromatiche nel liquido. Un minuto. Rimuovi.",n:"In tutte le varianti: un fantasma aromatico, non una presenza piena."},
+{p:"",t:"Bevi lentamente. Il caff\u00e8 \u00e8 il letto, la spezia \u00e8 il sogno."},
 ]},
 ];
 
-var VOCAB=[
-{w:"Densit\u00e0 e rarefazione",d:"Macchia densa: qualcosa si \u00e8 raccolto. Rarefazione: leggerezza o esaurimento. Questa concentrazione \u00e8 risorsa o peso?"},
-{w:"Centro e periferia",d:"Centro pieno: interiorit\u00e0, protezione. Bordi densi: proiezione verso fuori. Centro vuoto con bordi densi: qualcosa tiene dall\u2019esterno."},
-{w:"Continuit\u00e0 e frattura",d:"Macchia continua: coerenza. Frammentata: discontinuit\u00e0 o molteplicit\u00e0. Ferita o apertura."},
-{w:"Direzione e simmetria",d:"Espansione asimmetrica: una spinta prevalente. Simmetria: equilibrio o stallo."},
+var VV=[
+{w:"Densit\u00e0 e rarefazione",d:"Macchia densa: qualcosa si \u00e8 raccolto. Rarefazione: leggerezza o esaurimento. Risorsa o peso?"},
+{w:"Centro e periferia",d:"Centro pieno: interiorit\u00e0. Bordi densi: proiezione verso fuori. Centro vuoto con bordi densi: qualcosa tiene dall\u2019esterno."},
+{w:"Continuit\u00e0 e frattura",d:"Continua: coerenza. Frammentata: discontinuit\u00e0. Ferita o apertura."},
+{w:"Direzione e simmetria",d:"Asimmetria: una spinta prevalente. Simmetria: equilibrio o stallo."},
 {w:"Bordi netti e sfumati",d:"Il bordo \u00e8 una soglia. Netto: chiarezza. Sfumato: permeabilit\u00e0."},
-{w:"Velocit\u00e0",d:"Bordi filiformi: urgenza. Bordi compatti: pazienza, sedimentazione."},
+{w:"Velocit\u00e0",d:"Filiformi: urgenza. Compatti: pazienza, sedimentazione."},
 {w:"Residui e isole",d:"Depositi isolati: pensieri ricorrenti, possibilit\u00e0 accantonate, cose in sospeso."},
 ];
 
-function Bg(props){
-  return e("div",{className:"bg-wrap"},
-    e("img",{src:"img1.png",className:"bg-img i1"+(props.a===1?" active":""),alt:""}),
-    e("img",{src:"img2.png",className:"bg-img i2"+(props.a===2?" active":""),alt:""}),
-    e("div",{className:"bg-ov"})
+// READ CONTENT — the full document sections
+var RDOC=[
+{t:"I. Genealogia di una pratica",ps:[
+"La caffeomanzia \u00e8 antica quanto il caff\u00e8. La tradizione yemenita, araba, turca e greca della lettura dei fondi \u2014 tasseografia, dal francese tasse, tazza \u2014 risale almeno al XVI secolo. Il metodo \u00e8 semplice: si beve un caff\u00e8 preparato senza filtrazione, si capovolge la tazza sul piattino, si attende che i fondi formino figure, e si legge.",
+"La caffeomanzia cafausica parte da qui ma diverge radicalmente, per tre ragioni.",
+"La prima \u00e8 il mezzo. La cuccumella, il filtro manuale, la moka producono caff\u00e8 filtrato. I fondi restano nel cestello. Nella tazza arriva un liquido pulito. La caffeomanzia classica diventa fisicamente impossibile: manca la materia.",
+"La seconda \u00e8 la materia prima. La caffeomanzia cafausica utilizza esclusivamente caff\u00e8 esausto \u2014 chicchi invecchiati, buste dimenticate, lotti rifiutati. Caff\u00e8 che il mercato ha dichiarato finito. Ci\u00f2 che \u00e8 stato scartato trova una funzione diversa, una seconda vita che \u00e8 una vita altra.",
+"La terza \u00e8 il metodo di lettura. La caffeomanzia tradizionale opera per riconoscimento di figure. La caffeomanzia cafausica legge la materia nella sua materialit\u00e0: densit\u00e0 e rarefazione, centro e periferia, continuit\u00e0 e frattura. Pi\u00f9 vicino alla psicoanalisi che alla chiromanzia.",
+]},
+{t:"Il caff\u00e8 come soglia",ps:[
+"Nel mondo cafausico, il caff\u00e8 \u00e8 un medium orfico \u2014 una sostanza che attraversa soglie. Il chicco verde muore nella tostatura, la polvere muore nell\u2019acqua calda, il liquido muore nel corpo di chi beve.",
+"Il caff\u00e8 esausto \u2014 quello che ha gi\u00e0 attraversato tutte le sue soglie utili \u2014 compie un ultimo attraversamento. La sua esaustione \u00e8 la condizione della sua trasformazione in medium. Ci\u00f2 che non serve pi\u00f9 a niente serve a qualcosa che niente altro potrebbe fare.",
+]},
+{t:"Una lettura contemporanea",ps:[
+"Jodorowsky ha trasformato i tarocchi da strumento di predizione a strumento di analisi del presente. La caffeomanzia cafausica prova a compiere un\u2019operazione analoga. Il caff\u00e8 produce un\u2019immagine non intenzionale \u2014 un monotipo che nessuno ha progettato \u2014 e quell\u2019immagine diventa una superficie proiettiva su cui il consultante riconosce qualcosa di s\u00e9.",
+]},
+{t:"La dimensione politica",ps:[
+"Lo spreco del caff\u00e8 \u00e8 un problema reale. Per noi il caff\u00e8 esausto ha un valore rituale, comunitario, estetico, oracolare. Un valore che esiste fuori dalla logica dello scambio commerciale e dentro la logica del dono, della cura. Una politica della soglia, in cui ci\u00f2 che \u00e8 finito in un sistema ricomincia in un altro.",
+]},
+{t:"II. Il metodo di lettura",ps:[
+"1. Si legge la relazione, non la figura. Come sta questa materia nello spazio? Dove si \u00e8 concentrata? Dove ha lasciato vuoto?",
+"2. Il vuoto \u00e8 il testo principale. Lo spazio bianco che il caff\u00e8 ha lasciato libero. Il vuoto come potenzialit\u00e0.",
+"3. La lettura \u00e8 dialogica. Avviene come conversazione tra chi legge e chi consulta. Il caff\u00e8 non predice il futuro. Rende visibile il presente.",
+"4. La carta \u00e8 un archivio. Un monotipo unico, irripetibile, databile. Le carte si conservano. Nel tempo formano un diario cafausico.",
+"5. La lettura \u00e8 un atto di ospitalit\u00e0. Si dedica tempo, silenzio, presenza.",
+]},
+{t:"V. Il Caff\u00e8 dell\u2019Incontro",ps:[
+"Un caff\u00e8 monorigine specialty, trenta-quarantacinque giorni dopo la tostatura, non \u00e8 morto. \u00c8 in senescenza avanzata. I composti volatili leggeri sono evaporati o ossidati. Quello che resta \u00e8 lo scheletro: melanoidini, caffeina, una struttura di corpo. Ha perso la sua firma. L\u2019individuo \u00e8 diventato categoria.",
+"La metafora giusta non \u00e8 la morte. \u00c8 la perdita di identit\u00e0. Il chicco c\u2019\u00e8 ancora, la voce no. Il vuoto c\u2019\u00e8, ma \u00e8 un vuoto sordo \u2014 senza la sua potenzialit\u00e0.",
+"Aggiungere aromi a un caff\u00e8 in questo stato oscilla tra due poli: la protesi e la possessione. La protesi \u00e8 quando restituisci a un corpo ci\u00f2 che ha perso. La possessione \u00e8 quando imponi a un corpo ancora vivo una voce che non \u00e8 la sua.",
+"Il Caff\u00e8 dell\u2019Incontro \u00e8 possibile solo come protesi. Allora la spezia non colonizza: incontra. Il caff\u00e8 offre il corpo senza pretendere di avere ancora una voce. Le aromatiche offrono una voce senza pretendere di avere un corpo. Il caff\u00e8 \u00e8 il letto, la spezia \u00e8 il sogno.",
+]},
+{t:"VI. Note sulla pratica",ps:[
+"La caffeomanzia cafausica funziona esclusivamente con caff\u00e8 esausto. Usare caff\u00e8 fresco \u00e8 un fraintendimento della pratica.",
+"Il vocabolario proposto \u00e8 un punto di partenza. Ogni praticante svilupper\u00e0 il proprio linguaggio.",
+"La caffeomanzia cafausica \u00e8 un sistema autonomo. Pu\u00f2 coesistere con i tarocchi, i Messaggi di Ventura, l\u2019I Ching \u2014 ma opera come una porta separata.",
+"I monotipi sono opere uniche. Nel tempo, l\u2019archivio diventa un\u2019opera di una comunit\u00e0. Un altro archivio cafausico.",
+]},
+];
+
+// COMPONENTS
+function Bg(p){return h("div",{className:"bg-w"},h("img",{src:"img1.png",className:"bg-i i1"+(p.a===1?" on":""),alt:""}),h("img",{src:"img2.png",className:"bg-i i2"+(p.a===2?" on":""),alt:""}),h("div",{className:"bg-o"}))}
+
+function Voc(p){return h("div",{className:"vov"+(p.o?" on":"")},
+  h("div",{style:{maxWidth:600,margin:"0 auto"}},
+    h("div",{className:"vo-t"},"Vocabolario della lettura"),
+    VV.map(function(v,i){return h("div",{key:i,className:"vo-i"},h("div",{className:"vo-w"},v.w),h("div",{className:"vo-d"},v.d))}),
+  ),
+  h("button",{className:"vo-x",onClick:p.c},"Chiudi vocabolario")
+)}
+
+function BBar(p){
+  return h("div",{className:"bbar"},
+    h("button",{onClick:p.left,className:p.leftDim?"dim":""},p.leftLabel||"\u2190"),
+    h("div",{className:"bbar-center"},
+      h("span",{className:"bbar-label"},p.center)
+    ),
+    h("button",{onClick:p.right},p.rightLabel||"\u2192")
   );
 }
 
-function Vocab(props){
-  return e("div",{className:"voc-ov"+(props.o?" open":"")},
-    e("button",{className:"voc-x",onClick:props.c},"\u00d7"),
-    e("div",{className:"voc-in"},
-      e("div",{className:"voc-t"},"Vocabolario della lettura"),
-      VOCAB.map(function(v,i){return e("div",{key:i,className:"voc-i"},e("div",{className:"voc-w"},v.w),e("div",{className:"voc-d"},v.d))})
-    )
+function Steps(p){
+  var r=p.recipe,idx=us(0),i=idx[0],si=idx[1];
+  var ss=r.ss,s=ss[i],len=ss.length,pct=((i+1)/len)*100;
+  var tx=ur(0);
+
+  function prev(){if(i>0)si(i-1)}
+  function next(){if(i<len-1)si(i+1);else p.back()}
+  function tap(ev){if(ev.target.tagName!=="BUTTON")next()}
+  function ts(ev){tx.current=ev.touches[0].clientX}
+  function te(ev){var d=ev.changedTouches[0].clientX-tx.current;if(d>70)prev();else if(d<-70)next()}
+
+  ue(function(){window.scrollTo(0,0)},[i]);
+
+  return h("div",null,
+    h("div",{className:"step",onClick:tap,onTouchStart:ts,onTouchEnd:te,key:i},
+      h("div",{className:"st-name"},r.nm),
+      s.p?h("div",{className:"st-phase"},s.p):null,
+      h("div",{className:"st-txt",key:"t"+i},s.t),
+      s.n?h("div",{className:"st-note",key:"n"+i},s.n):null,
+      i<len-1?h("div",{className:"st-hint"},"tocca per avanzare"):h("div",{className:"st-hint",style:{color:"var(--accent)",opacity:.5}},"fine del rituale")
+    ),
+    h("div",{className:"prog"},h("div",{className:"prog-f",style:{width:pct+"%"}})),
+    h(BBar,{
+      left:function(){p.back()},leftLabel:"\u2190 Ricette",leftDim:false,
+      center:(i+1)+" / "+len,
+      right:i<len-1?next:p.back,rightLabel:i<len-1?"Avanti \u2192":"Fine"
+    })
   );
 }
 
-function StepView(props){
-  var r=props.recipe,s=us(0),idx=s[0],set=s[1];
-  var steps=r.steps,step=steps[idx],len=steps.length;
-  var pct=((idx+1)/len)*100;
-
-  // Touch handling for swipe back
-  var tx=React.useRef(0);
-  function onTS(ev){tx.current=ev.touches[0].clientX}
-  function onTE(ev){
-    var dx=ev.changedTouches[0].clientX-tx.current;
-    if(dx>80&&idx>0) set(idx-1);
-    else if(dx<-80&&idx<len-1) set(idx+1);
-  }
-
-  function advance(ev){
-    // Don't advance if they tapped a button
-    if(ev.target.tagName==="BUTTON") return;
-    if(idx<len-1) set(idx+1);
-  }
-
-  ue(function(){window.scrollTo(0,0)},[idx]);
-
-  return e("div",{className:"step",onClick:advance,onTouchStart:onTS,onTouchEnd:onTE},
-    e("div",{className:"step-exit"},
-      e("button",{onClick:function(ev){ev.stopPropagation();props.back()}},"\u2190 Ricette"),
-      e("button",{onClick:function(ev){ev.stopPropagation();props.vocab()}},"Vocabolario")
-    ),
-    e("div",{className:"step-body"},
-      e("div",{className:"step-name"},r.name),
-      step.p?e("div",{className:"step-phase"},step.p):null,
-      e("div",{className:"step-txt",key:"t"+idx},step.t),
-      step.n?e("div",{className:"step-note",key:"n"+idx},step.n):null,
-      idx<len-1?e("div",{className:"step-hint"},"tocca per avanzare"):
-        e("div",{className:"step-hint",style:{opacity:.6,color:"var(--accent)"}},"fine del rituale \u2014 tocca per tornare")
-    ),
-    e("div",{className:"progress"},e("div",{className:"progress-fill",style:{width:pct+"%"}})),
-    e("div",{className:"progress-count"},(idx+1)+" / "+len),
-    idx===len-1?e("div",{style:{position:"fixed",bottom:40,left:0,right:0,textAlign:"center",zIndex:10},
-      onClick:function(ev){ev.stopPropagation();props.back()}},
-      e("div",{style:{color:"var(--accent)",fontSize:"1rem",cursor:"pointer",opacity:.7}},"Torna alle ricette")):null
+function ReadView(p){
+  return h("div",{className:"read"},
+    RDOC.map(function(sec,si){return h("div",{key:si},
+      h("h2",null,sec.t),
+      sec.ps.map(function(txt,pi){return h("p",{key:pi},txt)})
+    )}),
+    h("div",{className:"cred"},"Lu Cafausu \u2014 Casa Cafausica \u2014 Fondazione Lac o Le Mon"),
+    h(BBar,{left:p.back,leftLabel:"\u2190 Ricette",center:"",right:p.vocab,rightLabel:"Vocabolario"})
   );
 }
 
 function App(){
-  var vs=us("splash"),view=vs[0],sv=vs[1];
-  var rs=us(null),rec=rs[0],sr=rs[1];
+  var vs=us("splash"),v=vs[0],sv=vs[1];
+  var rs=us(null),rc=rs[0],sr=rs[1];
   var vo=us(false),voc=vo[0],svo=vo[1];
 
   function goR(r){sr(r);sv("steps")}
-  function goM(){sv("menu");sr(null)}
+  function goM(){sv("menu");sr(null);window.scrollTo(0,0)}
 
-  if(view==="splash")return e("div",null,
-    e(Bg,{a:2}),
-    e("div",{className:"splash",onClick:function(){sv("menu")}},
-      e("div",{className:"sp-t"},"Caffeomanzia"),
-      e("div",{className:"sp-t2"},"Cafausica"),
-      e("div",{className:"sp-sub"},"documenti"),
-      e("div",{className:"sp-sep"},"\u2014 \u2022 \u2014"),
-      e("div",{className:"sp-m"},"Un manuale di pratica oracolare"),
-      e("div",{className:"sp-m"},"per caff\u00e8 che hanno perso la loro destinazione"),
-      e("div",{className:"sp-c"},"Lu Cafausu \u2014 Casa Cafausica \u2014 Fondazione Lac o Le Mon"),
-      e("div",{className:"sp-e"},"tocca per entrare")
+  if(v==="splash")return h("div",null,
+    h(Bg,{a:2}),
+    h("div",{className:"splash",onClick:function(){sv("menu")}},
+      h("div",{className:"s1"},"Caffeomanzia"),
+      h("div",{className:"s2"},"Cafausica"),
+      h("div",{className:"s3"},"documenti"),
+      h("div",{className:"s4"},"\u2014 \u2022 \u2014"),
+      h("div",{className:"s5"},"Un manuale di pratica oracolare"),
+      h("div",{className:"s5"},"per caff\u00e8 che hanno perso la loro destinazione"),
+      h("div",{className:"s6"},"Lu Cafausu \u2014 Casa Cafausica \u2014 Fondazione Lac o Le Mon"),
+      h("div",{className:"s7"},"tocca per entrare")
     )
   );
 
-  if(view==="menu")return e("div",null,
-    e(Bg,{a:1}),
-    e("div",{className:"menu"},
-      e("div",{className:"menu-top"},
-        e("button",{className:"menu-back",onClick:function(){sv("splash")}},"\u2190 Inizio"),
-        e("button",{className:"menu-vocab",onClick:function(){svo(true)}},"Vocabolario")
-      ),
-      e("div",{className:"menu-label"},"Scegli il rituale"),
-      RECIPES.map(function(r,i){
-        return e("div",{key:i,className:"rc",onClick:function(){goR(r)}},
-          e("span",{className:"rc-num"},r.num+"."),
-          e("span",{className:"rc-name"},r.name),
-          e("span",{className:"rc-desc"},r.desc)
-        );
-      })
+  if(v==="menu")return h("div",null,
+    h(Bg,{a:1}),
+    h("div",{className:"menu"},
+      h("div",{className:"menu-h"},"Scegli il rituale"),
+      RR.map(function(r,i){return h("div",{key:i,className:"rc",onClick:function(){goR(r)}},
+        h("span",{className:"rc-n"},r.num+"."),
+        h("span",{className:"rc-t"},r.nm),
+        h("span",{className:"rc-d"},r.ds)
+      )}),
+      h("div",{className:"menu-sep"},"\u2014 \u2022 \u2014"),
+      h("div",{className:"menu-read",onClick:function(){sv("read");window.scrollTo(0,0)}},
+        h("span",{className:"menu-read-t"},"Leggi il manuale"),
+        h("span",{className:"menu-read-d"},"Genealogia, metodo di lettura, vocabolario, note")
+      )
     ),
-    e(Vocab,{o:voc,c:function(){svo(false)}})
+    h(BBar,{left:function(){sv("splash")},leftLabel:"\u2190 Inizio",center:"",right:function(){svo(true)},rightLabel:"Vocabolario"}),
+    h(Voc,{o:voc,c:function(){svo(false)}})
   );
 
-  if(view==="steps"&&rec)return e("div",null,
-    e(Bg,{a:1}),
-    e(StepView,{recipe:rec,back:goM,vocab:function(){svo(true)}}),
-    e(Vocab,{o:voc,c:function(){svo(false)}})
+  if(v==="steps"&&rc)return h("div",null,
+    h(Bg,{a:1}),
+    h(Steps,{recipe:rc,back:goM,vocab:function(){svo(true)}}),
+    h(Voc,{o:voc,c:function(){svo(false)}})
+  );
+
+  if(v==="read")return h("div",null,
+    h(Bg,{a:1}),
+    h(ReadView,{back:goM,vocab:function(){svo(true)}}),
+    h(Voc,{o:voc,c:function(){svo(false)}})
   );
 
   return null;
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(e(App));
+ReactDOM.createRoot(document.getElementById("root")).render(h(App));
 </script>
 </body>
 </html>
