@@ -40,7 +40,7 @@ html{font-size:18px}body{background:var(--bg);color:var(--tx);font-family:var(--
 .st-ph{font-size:.9rem;color:var(--t2);letter-spacing:.08em;margin-bottom:32px;text-transform:uppercase}
 .st-tx{font-size:clamp(1.25rem,3.8vw,1.55rem);font-weight:300;line-height:1.75;opacity:0;animation:fs .4s ease forwards}
 .st-nt{font-size:clamp(1.05rem,2.8vw,1.2rem);color:var(--t2);font-style:italic;margin-top:24px;font-weight:300;line-height:1.7;opacity:0;animation:fs .4s ease .12s forwards}
-.bb{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(10,10,8,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--bd)}
+.bb{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:640px;z-index:50;background:rgba(10,10,8,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--bd);border-radius:12px 12px 0 0}
 .bb-prog{height:2px;background:rgba(255,255,255,.05)}.bb-prog-f{height:100%;background:var(--ac);transition:width .4s;opacity:.6}
 .bb-row{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 28px}
 .bb-btn{background:none;border:1px solid var(--bd);color:var(--ac);font-family:var(--f);font-size:1.1rem;cursor:pointer;padding:12px 24px;border-radius:8px;transition:all .2s;min-width:56px;min-height:52px;display:flex;align-items:center;justify-content:center}
@@ -73,6 +73,7 @@ html{font-size:18px}body{background:var(--bg);color:var(--tx);font-family:var(--
 <script>
 var h=React.createElement,us=React.useState,ue=React.useEffect;
 
+// RECIPES — Incontro has common steps + branching variants
 var RR=[
 {num:"I",nm:"Il Caff\u00e8 Sacrificale",ds:"Lettura pura. Non si beve.",ss:[
 {p:"Preparazione",t:"Prendi il caff\u00e8 esausto. Chicchi specialty invecchiati, buste dimenticate, lotti rifiutati."},
@@ -107,16 +108,32 @@ var RR=[
 {p:"Lettura",t:"La lettura \u00e8 gi\u00e0 avvenuta. Le percezioni durante l\u2019attesa sono la lettura."},
 {p:"Archivio",t:"Ferma la registrazione. Il file sonoro \u00e8 un documento oracolare. Conservalo."},
 ]},
-{num:"IV",nm:"Il Caff\u00e8 dell\u2019Incontro",ds:"Due assenze si incontrano. Si beve.",ss:[
+// Incontro — special: has common steps, then branches
+{num:"IV",nm:"Il Caff\u00e8 dell\u2019Incontro",ds:"Due assenze si incontrano. Si beve.",branching:true,
+common:[
 {p:"",t:"Un caff\u00e8 che ha superato i trenta giorni non \u00e8 morto. Ha perso la voce. L\u2019individuo \u00e8 diventato categoria.",n:"Possibile solo come protesi \u2014 quando il caff\u00e8 ha gi\u00e0 attraversato la soglia."},
 {p:"Preparazione",t:"Pesa 35 g di caff\u00e8 esausto. Monorigine che \u00e8 stato buono. Macina grosso (C40: 28\u201330 click). Scalda 500 ml a 90\u201392\u00b0C."},
 {p:"Preparazione",t:"Scegli una sola aromatica. Buccia d\u2019arancia essiccata oppure un baccello di cardamomo verde.",n:"Evitare cannella, anice stellato, vaniglia. Troppo dominanti."},
 {p:"Il principio",t:"Il caff\u00e8 viene estratto da solo. Le aromatiche arrivano dopo, nel liquido, come ospiti brevi. Non lavorano. Passano."},
-{p:"French press",t:"Versa l\u2019acqua sul caff\u00e8. Quattro minuti senza aromatiche. Aggiungi le aromatiche. Un minuto. Stantuffo. Versa."},
-{p:"Cuccumella classica",t:"Cestello con solo caff\u00e8. Capovolgi. Estrai. Versa nella tazza. Aromatiche nel liquido. Un minuto. Rimuovi."},
-{p:"Cuccumella aFa",t:"Cestello con solo caff\u00e8. Acqua dall\u2019alto senza capovolgere. Versa nella tazza. Aromatiche. Un minuto. Rimuovi.",n:"In tutte le varianti: un fantasma aromatico, non una presenza piena."},
-{p:"",t:"Bevi lentamente. Il caff\u00e8 \u00e8 il letto, la spezia \u00e8 il sogno."},
+],
+variants:[
+{nm:"French press",ss:[
+{p:"French press",t:"Versa l\u2019acqua sul caff\u00e8 nella French press. Quattro minuti senza aromatiche. Il caff\u00e8 \u00e8 solo con s\u00e9 stesso."},
+{p:"French press",t:"Aggiungi le aromatiche. Un minuto. Premi lo stantuffo. Versa."},
+{p:"",t:"Bevi lentamente. Il caff\u00e8 \u00e8 il letto, la spezia \u00e8 il sogno.",n:"Un fantasma aromatico, non una presenza piena."},
 ]},
+{nm:"Cuccumella classica",ss:[
+{p:"Cuccumella classica",t:"Cestello con solo caff\u00e8, senza aromatiche. Riempi il serbatoio. Capovolgi. Estrai normalmente."},
+{p:"Cuccumella classica",t:"Versa nella tazza. Aggiungi le aromatiche nel liquido caldo. Un minuto. Rimuovi con un cucchiaio o un colino."},
+{p:"",t:"Bevi lentamente. Il caff\u00e8 \u00e8 il letto, la spezia \u00e8 il sogno.",n:"Un fantasma aromatico, non una presenza piena."},
+]},
+{nm:"Cuccumella aFa",ss:[
+{p:"Cuccumella aFa",t:"Cestello con solo caff\u00e8. Versa l\u2019acqua dall\u2019alto senza capovolgere. L\u2019acqua scende per gravit\u00e0."},
+{p:"Cuccumella aFa",t:"Versa nella tazza. Aggiungi le aromatiche nel liquido. Un minuto. Rimuovi."},
+{p:"",t:"Bevi lentamente. Il caff\u00e8 \u00e8 il letto, la spezia \u00e8 il sogno.",n:"Un fantasma aromatico, non una presenza piena."},
+]},
+],
+},
 ];
 
 var VV=[
@@ -130,78 +147,168 @@ var VV=[
 ];
 
 var DOC=[
-{t:"I. Genealogia di una pratica",c:["La caffeomanzia \u00e8 antica quanto il caff\u00e8. La tradizione yemenita, araba, turca e greca della lettura dei fondi \u2014 tasseografia, dal francese tasse, tazza \u2014 risale almeno al XVI secolo, quando il caff\u00e8 raggiunse Costantinopoli e i primi caff\u00e8 pubblici divennero luoghi di conversazione, commercio e divinazione. Il metodo \u00e8 semplice: si beve un caff\u00e8 preparato senza filtrazione (il caff\u00e8 turco, cotto nel cezve con la polvere finissima in sospensione), si capovolge la tazza sul piattino, si attende che i fondi scendano lungo le pareti formando figure, e si legge.","Questa pratica ha attraversato secoli e geografie mantenendo una struttura costante: il caff\u00e8 produce una materia residuale densa, il gesto del capovolgimento trasferisce quella materia sulle pareti della tazza, il tempo di attesa \u00e8 un tempo rituale di sospensione, e la lettura avviene attraverso il riconoscimento di forme in una superficie caotica \u2014 un procedimento analogo al test di Rorschach, al quale \u00e8 storicamente anteriore.","La caffeomanzia cafausica parte da qui ma diverge radicalmente, per tre ragioni.","La prima \u00e8 il mezzo. La cuccumella, il filtro manuale, la moka \u2014 i metodi di estrazione che appartengono alla tradizione italiana e alla pratica contemporanea dello specialty coffee \u2014 producono caff\u00e8 filtrato. I fondi restano nel cestello, nel filtro di carta, nella camera della moka. Nella tazza arriva un liquido essenzialmente pulito. La caffeomanzia classica diventa fisicamente impossibile: manca la materia. Questo vincolo tecnico \u00e8 il punto di partenza dell\u2019invenzione.","La seconda \u00e8 la materia prima. La caffeomanzia cafausica utilizza esclusivamente caff\u00e8 esausto \u2014 chicchi invecchiati, buste dimenticate, specialty coffee che non \u00e8 piaciuto, fondi di magazzino, lotti rifiutati, campioni abbandonati. Caff\u00e8 che il mercato ha dichiarato finito. L\u2019atto fondativo di questa pratica \u00e8 il rifiuto dello spreco: ci\u00f2 che \u00e8 stato scartato trova una funzione diversa, una seconda vita che \u00e8 una vita altra. Il caff\u00e8 sacrificale rinuncia alla sua funzione abituale (il piacere, l\u2019energia, la socialit\u00e0 del bere) per diventare medium oracolare. Questo passaggio \u00e8 politico prima che esoterico.","La terza \u00e8 il metodo di lettura. La caffeomanzia tradizionale opera per riconoscimento di figure: si cerca un uccello, un volto, una lettera, un albero \u2014 forme discrete con significati codificati. La caffeomanzia cafausica opera diversamente. Legge la materia stessa nella sua materialit\u00e0: densit\u00e0 e rarefazione, centro e periferia, continuit\u00e0 e frattura, il rapporto tra la macchia e il vuoto intorno. Il suo vocabolario \u00e8 relazionale, dinamico, aperto. Pi\u00f9 vicino alla psicoanalisi che alla chiromanzia."]},
-{t:"Il caff\u00e8 come soglia",c:["Nel mondo cafausico, il caff\u00e8 \u00e8 un medium orfico \u2014 una sostanza che attraversa soglie. Il chicco verde muore nella tostatura, la polvere muore nell\u2019acqua calda, il liquido muore nel corpo di chi beve.","Ogni passaggio \u00e8 una trasformazione irreversibile. La cuccumella incarna questa struttura in modo esemplare: il capovolgimento \u00e8 una discesa, l\u2019acqua attraversa i fondi in una camera chiusa (buia), ci\u00f2 che emerge dall\u2019altra parte \u00e8 qualcosa di nuovo \u2014 caff\u00e8. I fondi restano sigillati nel buio: hanno compiuto il loro lavoro senza essere mai visti. La caffeomanzia cafausica prende questo principio e lo estende: il caff\u00e8 esausto \u2014 quello che ha gi\u00e0 attraversato tutte le sue soglie utili, che \u00e8 gi\u00e0 stato dichiarato morto dal mercato \u2014 compie un ultimo attraversamento. La sua esaustione \u00e8 la condizione della sua trasformazione in medium. Ci\u00f2 che non serve pi\u00f9 a niente serve a qualcosa che niente altro potrebbe fare."]},
-{t:"Una lettura contemporanea",c:["Alejandro Jodorowsky ha trasformato i tarocchi da strumento di predizione del futuro a strumento di analisi del presente. Nella sua pratica, le carte non dicono cosa accadr\u00e0 \u2014 rivelano ci\u00f2 che \u00e8 gi\u00e0 in atto, le strutture inconsce, i blocchi, le risorse inutilizzate, le domande che il consultante evita di porsi. La caffeomanzia cafausica prova a compiere un\u2019operazione analoga. Il caff\u00e8 produce un\u2019immagine non intenzionale \u2014 un monotipo che nessuno ha progettato \u2014 e quell\u2019immagine diventa una superficie proiettiva su cui il consultante riconosce qualcosa di s\u00e9. Questo riconoscimento \u00e8 il momento oracolare.","La dimensione esoterica resta intatta perch\u00e9 la materia \u00e8 reale: un caff\u00e8 che \u00e8 stato vivo, che ha avuto un viaggio, un\u2019origine, una stagione, e che ora \u00e8 esausto produce figure che portano la traccia di tutta quella storia. Ogni lettura \u00e8 irripetibile perch\u00e9 ogni combinazione di variabili \u00e8 unica."]},
-{t:"La dimensione politica",c:["Lo spreco degli alimenti \u00e8 un problema reale, e il caff\u00e8 con i suoi volumi di produzione e distribuzione non \u00e8 immune. Lotti che non superano il cupping, buste aperte che invecchiano, campioni inviati e dimenticati, errori di tostatura, giacenze invendute. Per noi il caff\u00e8 esausto ha un valore rituale, comunitario, estetico, oracolare. \u00c8 un valore che esiste fuori dalla logica dello scambio commerciale e dentro la logica del dono, della cura, dell\u2019attenzione a ci\u00f2 che \u00e8 stato scartato. Una politica della soglia, in cui ci\u00f2 che \u00e8 finito in un sistema ricomincia in un altro."]},
-{t:"II. Il metodo di lettura",c:["Prima delle ricette, il metodo. Senza un metodo di lettura, le ricette producono materia senza senso.","1. Si legge la relazione, non la figura. La caffeomanzia cafausica chiede: come sta questa materia nello spazio? Dove si \u00e8 concentrata? Dove ha lasciato vuoto? Queste sono domande relazionali. Non cercano un oggetto da nominare ma una dinamica da riconoscere.","2. Il vuoto \u00e8 il testo principale. Si legge anzitutto il vuoto: lo spazio bianco che il caff\u00e8 ha lasciato libero. Il vuoto come potenzialit\u00e0, come spazio in cui qualcosa pu\u00f2 ancora accadere. La proporzione tra pieno e vuoto \u00e8 la prima cosa che si legge.","3. La lettura \u00e8 dialogica. Chi legge non interpreta da solo. La lettura avviene come conversazione tra chi legge e chi consulta. Il caff\u00e8 non predice il futuro. Rende visibile il presente a chi ha bisogno di vederlo da un\u2019angolatura diversa.","4. La carta \u00e8 un archivio. Quando la lettura avviene su carta, il risultato \u00e8 un oggetto fisico: un monotipo unico, irripetibile, databile. Si consiglia di conservare le carte. Nel tempo si accumula un archivio \u2014 un diario cafausico.","5. La lettura \u00e8 un atto di ospitalit\u00e0. Leggere il caff\u00e8 a qualcuno \u00e8 un atto di attenzione: si dedica tempo, silenzio, presenza."]},
-{t:"V. Il Caff\u00e8 dell\u2019Incontro",c:["Un caff\u00e8 monorigine specialty, trenta-quarantacinque giorni dopo la tostatura, non \u00e8 morto. \u00c8 in uno stato che un biologo chiamerebbe senescenza avanzata. I composti volatili pi\u00f9 leggeri \u2014 esteri, aldeidi, chetoni a basso peso molecolare \u2014 sono in larga parte evaporati o ossidati. Quello che resta \u00e8 lo scheletro: melanoidini, caffeina, acidi clorogenici residui, una struttura di corpo e una lieve amarezza di fondo. Ha perso la sua firma. Un Yirgacheffe che a dieci giorni aveva gelsomino, bergamotto, pesca bianca \u2014 a trenta giorni ha \u201ccaff\u00e8.\u201d L\u2019individuo \u00e8 diventato categoria.","La metafora giusta non \u00e8 la morte. \u00c8 la perdita di identit\u00e0. Il chicco c\u2019\u00e8 ancora, la voce no. Ha attraversato la soglia tra presenza e assenza, non tra vita e morte. Il vuoto c\u2019\u00e8, ma \u00e8 un vuoto sordo \u2014 senza la sua potenzialit\u00e0.","Aggiungere aromi a un caff\u00e8 in questo stato oscilla tra due poli: la protesi e la possessione. La protesi \u00e8 quando restituisci a un corpo ci\u00f2 che ha perso \u2014 il caff\u00e8 esausto a cui ridai una voce attraverso la buccia d\u2019arancia o il cardamomo. Non \u00e8 la sua voce, ma \u00e8 una voce. La possessione \u00e8 quando imponi a un corpo ancora vivo una voce che non \u00e8 la sua \u2014 il Kenya che aveva il suo gelsomino e il suo ribes, e tu ci metti dentro l\u2019anice stellato. Lo possiedi. Lo parli tu al posto suo.","Il Caff\u00e8 dell\u2019Incontro \u00e8 possibile solo come protesi \u2014 solo quando il caff\u00e8 ha gi\u00e0 attraversato la soglia e il vuoto \u00e8 davvero vuoto. Allora la spezia non colonizza: incontra. Due materie in stato di dispersione si trovano nel punto in cui nessuna delle due \u00e8 pi\u00f9 pienamente s\u00e9 stessa. Il caff\u00e8 offre il corpo senza pretendere di avere ancora una voce. Le aromatiche offrono una voce senza pretendere di avere un corpo. Il caff\u00e8 \u00e8 il letto, la spezia \u00e8 il sogno."]},
-{t:"VI. Note sulla pratica",c:["La caffeomanzia cafausica funziona esclusivamente con caff\u00e8 esausto. Usare caff\u00e8 fresco e buono per la lettura non \u00e8 vietato, ma \u00e8 un fraintendimento della pratica. Il caff\u00e8 sacrificale \u00e8 caff\u00e8 che ha gi\u00e0 esaurito la sua funzione primaria: la sua seconda vita come medium oracolare dipende dalla sua prima morte come bevanda di piacere.","Il vocabolario proposto \u00e8 un punto di partenza. Ogni praticante svilupper\u00e0 il proprio linguaggio, le proprie categorie, le proprie sensibilit\u00e0.","La caffeomanzia cafausica \u00e8 un sistema autonomo. Pu\u00f2 coesistere con i tarocchi, i Messaggi di Ventura, l\u2019I Ching \u2014 ma opera come una porta separata. La materia parla da s\u00e9, se la si guarda con attenzione sufficiente.","Il Caff\u00e8 dell\u2019Incontro occupa una posizione diversa: non \u00e8 una pratica oracolare ma una pratica di soglia tra il caff\u00e8 specialty e la caffeomanzia. \u00c8 la ricetta del passaggio.","I monotipi sono opere uniche \u2014 stampe a tiratura unica prodotte dal caso, dalla gravit\u00e0, e dall\u2019incontro tra una materia specifica e una carta specifica. Conservarli \u00e8 conservare una traccia materiale di un atto di attenzione. Nel tempo, l\u2019archivio diventa un\u2019opera di una comunit\u00e0. Un altro archivio cafausico."]},
+{t:"I. Genealogia di una pratica",c:["La caffeomanzia \u00e8 antica quanto il caff\u00e8. La tradizione yemenita, araba, turca e greca della lettura dei fondi \u2014 tasseografia, dal francese tasse, tazza \u2014 risale almeno al XVI secolo, quando il caff\u00e8 raggiunse Costantinopoli e i primi caff\u00e8 pubblici divennero luoghi di conversazione, commercio e divinazione. Il metodo \u00e8 semplice: si beve un caff\u00e8 preparato senza filtrazione (il caff\u00e8 turco, cotto nel cezve con la polvere finissima in sospensione), si capovolge la tazza sul piattino, si attende che i fondi scendano lungo le pareti formando figure, e si legge.","Questa pratica ha attraversato secoli e geografie mantenendo una struttura costante: il caff\u00e8 produce una materia residuale densa, il gesto del capovolgimento trasferisce quella materia sulle pareti della tazza, il tempo di attesa \u00e8 un tempo rituale di sospensione, e la lettura avviene attraverso il riconoscimento di forme in una superficie caotica \u2014 un procedimento analogo al test di Rorschach, al quale \u00e8 storicamente anteriore.","La caffeomanzia cafausica parte da qui ma diverge radicalmente, per tre ragioni.","La prima \u00e8 il mezzo. La cuccumella, il filtro manuale, la moka \u2014 i metodi di estrazione che appartengono alla tradizione italiana e alla pratica contemporanea dello specialty coffee \u2014 producono caff\u00e8 filtrato. I fondi restano nel cestello, nel filtro di carta, nella camera della moka. Nella tazza arriva un liquido essenzialmente pulito. La caffeomanzia classica diventa fisicamente impossibile: manca la materia. Questo vincolo tecnico \u00e8 il punto di partenza dell\u2019invenzione.","La seconda \u00e8 la materia prima. La caffeomanzia cafausica utilizza esclusivamente caff\u00e8 esausto \u2014 chicchi invecchiati, buste dimenticate, specialty coffee che non \u00e8 piaciuto, fondi di magazzino, lotti rifiutati, campioni abbandonati. Caff\u00e8 che il mercato ha dichiarato finito. L\u2019atto fondativo di questa pratica \u00e8 il rifiuto dello spreco: ci\u00f2 che \u00e8 stato scartato trova una funzione diversa, una seconda vita che \u00e8 una vita altra.","La terza \u00e8 il metodo di lettura. La caffeomanzia cafausica legge la materia nella sua materialit\u00e0: densit\u00e0 e rarefazione, centro e periferia, continuit\u00e0 e frattura. Pi\u00f9 vicino alla psicoanalisi che alla chiromanzia."]},
+{t:"Il caff\u00e8 come soglia",c:["Nel mondo cafausico, il caff\u00e8 \u00e8 un medium orfico \u2014 una sostanza che attraversa soglie. Il chicco verde muore nella tostatura, la polvere muore nell\u2019acqua calda, il liquido muore nel corpo di chi beve.","Il caff\u00e8 esausto \u2014 quello che ha gi\u00e0 attraversato tutte le sue soglie utili \u2014 compie un ultimo attraversamento. La sua esaustione \u00e8 la condizione della sua trasformazione in medium. Ci\u00f2 che non serve pi\u00f9 a niente serve a qualcosa che niente altro potrebbe fare."]},
+{t:"Una lettura contemporanea",c:["Jodorowsky ha trasformato i tarocchi da strumento di predizione a strumento di analisi del presente. La caffeomanzia cafausica prova a compiere un\u2019operazione analoga. Il caff\u00e8 produce un\u2019immagine non intenzionale \u2014 un monotipo \u2014 e quell\u2019immagine diventa una superficie proiettiva. Questo riconoscimento \u00e8 il momento oracolare.","La dimensione esoterica resta intatta perch\u00e9 la materia \u00e8 reale. Ogni lettura \u00e8 irripetibile perch\u00e9 ogni combinazione di variabili \u00e8 unica."]},
+{t:"La dimensione politica",c:["Lo spreco del caff\u00e8 \u00e8 un problema reale. Per noi il caff\u00e8 esausto ha un valore rituale, comunitario, estetico, oracolare. Una politica della soglia, in cui ci\u00f2 che \u00e8 finito in un sistema ricomincia in un altro."]},
+{t:"II. Il metodo di lettura",c:["1. Si legge la relazione, non la figura. Come sta questa materia nello spazio?","2. Il vuoto \u00e8 il testo principale. Il vuoto come potenzialit\u00e0.","3. La lettura \u00e8 dialogica. Il caff\u00e8 non predice il futuro. Rende visibile il presente.","4. La carta \u00e8 un archivio. Un monotipo unico, irripetibile, databile.","5. La lettura \u00e8 un atto di ospitalit\u00e0. Tempo, silenzio, presenza."]},
+{t:"V. Il Caff\u00e8 dell\u2019Incontro",c:["Un caff\u00e8 monorigine, trenta-quarantacinque giorni dopo la tostatura, non \u00e8 morto. Ha perso la sua firma. L\u2019individuo \u00e8 diventato categoria.","La metafora giusta non \u00e8 la morte. \u00c8 la perdita di identit\u00e0. Il vuoto c\u2019\u00e8, ma \u00e8 un vuoto sordo.","Aggiungere aromi oscilla tra protesi e possessione. La protesi restituisce una voce. La possessione impone una voce a un corpo ancora vivo.","Il Caff\u00e8 dell\u2019Incontro \u00e8 possibile solo come protesi. Due materie in stato di dispersione si trovano nel punto in cui nessuna \u00e8 pi\u00f9 pienamente s\u00e9 stessa. Il caff\u00e8 \u00e8 il letto, la spezia \u00e8 il sogno."]},
+{t:"VI. Note sulla pratica",c:["La caffeomanzia cafausica funziona esclusivamente con caff\u00e8 esausto. La seconda vita come medium oracolare dipende dalla prima morte come bevanda di piacere.","Il vocabolario \u00e8 un punto di partenza. Ogni praticante svilupper\u00e0 il proprio linguaggio.","La caffeomanzia cafausica \u00e8 un sistema autonomo. La materia parla da s\u00e9.","I monotipi sono opere uniche. L\u2019archivio diventa un\u2019opera di una comunit\u00e0."]},
 ];
 
+// COMPONENTS
 function Bg(p){return h("div",{className:"bg-w"},h("img",{src:"img1.png",className:"bg-i i1"+(p.a===1?" on":""),alt:""}),h("img",{src:"img2.png",className:"bg-i i2"+(p.a===2?" on":""),alt:""}),h("div",{className:"bg-o"}))}
 
 function Voc(p){return h("div",{className:"vov"+(p.o?" on":"")},h("div",{style:{maxWidth:600,margin:"0 auto"}},h("div",{className:"vo-t"},"Vocabolario della lettura"),VV.map(function(v,i){return h("div",{key:i,className:"vo-i"},h("div",{className:"vo-w"},v.w),h("div",{className:"vo-d"},v.d))})),h("button",{className:"vo-x",onClick:p.c},"Chiudi vocabolario"))}
 
-// STEP VIEW — bottom bar with 4 clear buttons: ← | Esci | Vocabolario | →
-function Steps(p){
-  var r=p.recipe,st=us(0),i=st[0],si=st[1];
-  var ss=r.ss,s=ss[i],len=ss.length,pct=((i+1)/len)*100;
-  function prev(){if(i>0)si(i-1)}
-  function next(){if(i<len-1)si(i+1)}
-  ue(function(){window.scrollTo(0,0)},[i]);
-  return h("div",null,
-    h("div",{className:"step",key:i},
-      h("div",{className:"st-nm"},r.nm),
-      s.p?h("div",{className:"st-ph"},s.p):null,
-      h("div",{className:"st-tx",key:"t"+i},s.t),
-      s.n?h("div",{className:"st-nt",key:"n"+i},s.n):null
+// BOTTOM BAR
+// Top row: Inizio (left) | Ricette (center) | Vocabolario (right) — small, at sides
+// Bottom row: ← (big) | counter | → (big) — centered, thumb zone
+function StepBar(p){
+  return h("div",{className:"bb"},
+    p.prog!==undefined?h("div",{className:"bb-prog"},h("div",{className:"bb-prog-f",style:{width:p.prog+"%"}})):null,
+    h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"8px 20px 2px"}},
+      h("button",{className:"bb-ex",onClick:p.home},"Inizio"),
+      h("button",{className:"bb-ex",onClick:p.menu},"Ricette"),
+      h("button",{className:"bb-ex",onClick:p.vocab},"Vocabolario")
     ),
-    h("div",{className:"bb"},
-      h("div",{className:"bb-prog"},h("div",{className:"bb-prog-f",style:{width:pct+"%"}})),
-      h("div",{style:{display:"flex",justifyContent:"center",gap:24,padding:"8px 16px 4px"}},
-        h("button",{className:"bb-ex",onClick:function(){p.home()}},"Inizio"),
-        h("button",{className:"bb-ex",onClick:p.back},"Ricette"),
-        h("button",{className:"bb-ex",onClick:p.vocab},"Vocabolario")
-      ),
-      h("div",{className:"bb-row"},
-        h("button",{className:"bb-btn"+(i===0?" off":""),onClick:prev},"\u2190 Indietro"),
-        h("div",{className:"bb-mid"},h("div",{className:"bb-ct"},(i+1)+" / "+len)),
-        i<len-1?h("button",{className:"bb-btn",onClick:next},"Avanti \u2192"):
-          h("button",{className:"bb-btn",onClick:p.back},"Fine \u2192")
-      )
+    h("div",{style:{display:"flex",justifyContent:"center",alignItems:"center",gap:32,padding:"8px 20px 12px"}},
+      h("button",{className:"bb-btn"+(p.canPrev?"":" off"),onClick:p.prev},"\u2190"),
+      h("div",{className:"bb-ct"},p.count),
+      h("button",{className:"bb-btn",onClick:p.next},p.nextLabel||"\u2192")
     )
   );
 }
 
-// READ VIEW — bottom bar: ← Ricette | Vocabolario
+// STEPS — handles both normal recipes and branching (Incontro)
+function Steps(p){
+  var r=p.recipe;
+
+  // Branching recipe state
+  var vi=us(-1),variant=vi[0],setVar=vi[1]; // -1 = in common steps, 0/1/2 = in variant
+  var si=us(0),idx=si[0],setIdx=si[1];
+
+  var steps,len;
+  if(r.branching){
+    if(variant===-1){
+      steps=r.common;
+    } else {
+      steps=r.variants[variant].ss;
+    }
+  } else {
+    steps=r.ss;
+  }
+  len=steps.length;
+  var s=steps[idx];
+  var totalCommon=r.branching?r.common.length:0;
+  var pct;
+  if(r.branching){
+    if(variant===-1) pct=((idx+1)/(totalCommon+3))*100; // approximate
+    else pct=((totalCommon+idx+1)/(totalCommon+steps.length))*100;
+  } else {
+    pct=((idx+1)/len)*100;
+  }
+
+  function prev(){if(idx>0)setIdx(idx-1);else if(variant>=0){setVar(-1);setIdx(totalCommon-1)}}
+  function next(){
+    if(idx<len-1)setIdx(idx+1);
+    else if(r.branching&&variant===-1){/* show variant choice — handled below */}
+    else p.back();
+  }
+
+  ue(function(){window.scrollTo(0,0)},[idx,variant]);
+
+  // Show variant choice screen
+  if(r.branching&&variant===-1&&idx===len-1){
+    // Last common step — after user reads it, next tap shows variant choice
+    // Actually let's show variant choice as a separate screen
+  }
+
+  // Variant choice screen
+  var vc=us(false),showChoice=vc[0],setChoice=vc[1];
+
+  function nextOrChoice(){
+    if(r.branching&&variant===-1&&idx===len-1){
+      setChoice(true);
+    } else {
+      next();
+    }
+  }
+
+  if(showChoice){
+    return h("div",null,
+      h("div",{className:"step"},
+        h("div",{className:"st-nm"},r.nm),
+        h("div",{className:"st-ph"},"Scegli la variante"),
+        h("div",{style:{width:"100%",maxWidth:400}},
+          r.variants.map(function(vr,vi2){
+            return h("div",{key:vi2,className:"rc",style:{marginBottom:16},onClick:function(){setVar(vi2);setIdx(0);setChoice(false)}},
+              h("span",{className:"rc-t"},vr.nm)
+            );
+          })
+        )
+      ),
+      h(StepBar,{
+        prog:pct,home:p.home,menu:p.back,vocab:p.vocab,
+        prev:function(){setChoice(false)},canPrev:true,
+        next:function(){},nextLabel:"",
+        count:""
+      })
+    );
+  }
+
+  var countStr=(idx+1)+" / "+len;
+  var isLast=idx===len-1;
+  var nextLbl;
+  if(r.branching&&variant===-1&&isLast) nextLbl="Scegli \u2192";
+  else if(isLast) nextLbl="Fine";
+  else nextLbl="\u2192";
+
+  return h("div",null,
+    h("div",{className:"step",key:""+variant+"-"+idx},
+      h("div",{className:"st-nm"},r.nm+(variant>=0?" \u2014 "+r.variants[variant].nm:"")),
+      s.p?h("div",{className:"st-ph"},s.p):null,
+      h("div",{className:"st-tx",key:"t"+variant+"-"+idx},s.t),
+      s.n?h("div",{className:"st-nt",key:"n"+variant+"-"+idx},s.n):null
+    ),
+    h(StepBar,{
+      prog:pct,home:p.home,menu:p.back,vocab:p.vocab,
+      prev:prev,canPrev:idx>0||(variant>=0),
+      next:isLast&&!(r.branching&&variant===-1)?p.back:nextOrChoice,
+      nextLabel:nextLbl,
+      count:countStr
+    })
+  );
+}
+
+// READ VIEW
 function ReadView(p){
   return h("div",null,
     h("div",{className:"read"},
-      DOC.map(function(sec,si){return h("div",{key:si},
+      DOC.map(function(sec,si2){return h("div",{key:si2},
         h("h2",null,sec.t),
         sec.c.map(function(txt,pi){return h("p",{key:pi},txt)})
       )}),
       h("div",{className:"cred"},"Lu Cafausu \u2014 Casa Cafausica \u2014 Fondazione Lac o Le Mon")
     ),
     h("div",{className:"bb"},
-      h("div",{className:"bb-row"},
+      h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 20px 14px"}},
         h("button",{className:"bb-btn",onClick:p.back},"\u2190 Ricette"),
-        h("div",{style:{flex:1}}),
         h("button",{className:"bb-btn",onClick:p.vocab},"Vocabolario")
       )
     )
   );
 }
 
+// APP
 function App(){
   var vs=us("splash"),v=vs[0],sv=vs[1];
   var rs=us(null),rc=rs[0],sr=rs[1];
   var vo=us(false),voc=vo[0],svo=vo[1];
-  function goR(r){sr(r);sv("steps");window.scrollTo(0,0)}
+  function goHome(){sv("splash");sr(null);window.scrollTo(0,0)}
   function goM(){sv("menu");sr(null);window.scrollTo(0,0)}
+  function goR(r){sr(r);sv("steps");window.scrollTo(0,0)}
 
-  // SPLASH
   if(v==="splash")return h("div",null,h(Bg,{a:2}),
     h("div",{className:"splash",onClick:function(){sv("menu")}},
       h("div",{className:"s1"},"Caffeomanzia"),h("div",{className:"s2"},"Cafausica"),
@@ -211,7 +318,6 @@ function App(){
       h("div",{className:"s6"},"Lu Cafausu \u2014 Casa Cafausica \u2014 Fondazione Lac o Le Mon"),
       h("div",{className:"s7"},"tocca per entrare")));
 
-  // MENU — recipes as cards, then manual + vocab as cards, bottom bar only for ← Inizio
   if(v==="menu")return h("div",null,h(Bg,{a:1}),
     h("div",{className:"menu"},
       h("div",{className:"menu-h"},"Scegli il rituale"),
@@ -226,20 +332,16 @@ function App(){
         h("span",{className:"rc-d"},"I sette termini per leggere la materia"))
     ),
     h("div",{className:"bb"},
-      h("div",{className:"bb-row"},
-        h("button",{className:"bb-btn",onClick:function(){sv("splash")}},"\u2190 Inizio"),
-        h("div",{style:{flex:1}}),
-        h("div")
+      h("div",{style:{display:"flex",justifyContent:"center",padding:"10px 20px 14px"}},
+        h("button",{className:"bb-ex",onClick:goHome},"\u2190 Inizio")
       )
     ),
     h(Voc,{o:voc,c:function(){svo(false)}}));
 
-  // STEPS
   if(v==="steps"&&rc)return h("div",null,h(Bg,{a:1}),
-    h(Steps,{recipe:rc,back:goM,home:function(){sv("splash");sr(null);window.scrollTo(0,0)},vocab:function(){svo(true)}}),
+    h(Steps,{recipe:rc,back:goM,home:goHome,vocab:function(){svo(true)}}),
     h(Voc,{o:voc,c:function(){svo(false)}}));
 
-  // READ
   if(v==="read")return h("div",null,h(Bg,{a:1}),
     h(ReadView,{back:goM,vocab:function(){svo(true)}}),
     h(Voc,{o:voc,c:function(){svo(false)}}));
@@ -247,7 +349,6 @@ function App(){
   return null;
 }
 ReactDOM.createRoot(document.getElementById("root")).render(h(App));
-
 </script>
 </body>
 </html>
